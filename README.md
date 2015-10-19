@@ -10,4 +10,4 @@ Le code est plus simple d'usage, expressif, et bien évidemment très puissant, 
 
 *Extend all the things!*
 
-**Ce Playground accompagne le tutoriel publié sur le blog Aya.io**
+**Ce Playground accompagne le [tutoriel publié sur le blog Aya.io](http://aya.io/blog/swift-array-extensions/).**
