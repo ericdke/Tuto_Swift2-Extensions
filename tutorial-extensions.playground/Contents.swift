@@ -44,7 +44,7 @@ print(code.withoutDigits)
 extension String {
     
     var acronym:String {
-        return self.withoutDigits.filter { $0 != " " }.filter { $0 == $0.uppercaseString }.joinWithSeparator("")
+        return self.withoutDigits.filter { $0 != " " }.filter { $0 == $0.uppercased() }.joined(separator: "")
     }
     
 }
@@ -52,7 +52,7 @@ extension String {
 let title = "Industrial Light and Magic 1992"
 print(title.acronym)
 
-extension CollectionType where Generator.Element == String {
+extension Collection where Iterator.Element == String {
     
     var arraysOfLetters:[[String]] {
         return self.flatMap { $0.letters }
@@ -74,7 +74,7 @@ struct Movie: CustomStringConvertible {
     
     var title:String
     var year:Int
-
+    
 }
 
 extension Movie {
@@ -83,13 +83,13 @@ extension Movie {
     }
 }
 
-extension CollectionType where Generator.Element: CustomStringConvertible {
+extension Collection where Iterator.Element: CustomStringConvertible {
     var descriptions:[String] {
         return self.map { $0.description }
     }
 }
 
-extension CollectionType where Generator.Element == Int {
+extension Collection where Iterator.Element == Int {
     
     var uniques:[Int] {
         return Array(Set(self))
@@ -97,7 +97,7 @@ extension CollectionType where Generator.Element == Int {
     
 }
 
-extension CollectionType where Generator.Element == Movie {
+extension Collection where Iterator.Element == Movie {
     
     var years:[Int] {
         return self.map { $0.year }
@@ -116,7 +116,7 @@ extension CollectionType where Generator.Element == Movie {
     }
     
     var byYear:[Movie] {
-        return self.sort { $0.year < $1.year }
+        return self.sorted { $0.year < $1.year }
     }
     
 }
@@ -134,13 +134,13 @@ let movies = [
     Movie(title: "The Exorcist", year: 1973)
 ]
 
-let uniqueYears = movies.years.uniques.sort()
-let yearsList = Array(uniqueYears.dropLast()).map { String($0) }.joinWithSeparator(", ")
+let uniqueYears = movies.years.uniques.sorted()
+let yearsList = Array(uniqueYears.dropLast()).map { String($0) }.joined(separator: ", ")
 print("Ces \(movies.count) films sont sortis en \(yearsList) et \(uniqueYears.last!).")
 
 let year = 1986
-let moviesBefore = movies.before(year)
-let list1986 = moviesBefore.byYear.descriptions.joinWithSeparator("\n")
+let moviesBefore = movies.before(year: year)
+let list1986 = moviesBefore.byYear.descriptions.joined(separator: "\n")
 print("Parmi eux, \(moviesBefore.count) sont d'avant \(year):\n\(list1986)")
 
 print("---")
@@ -176,4 +176,5 @@ print(bttfB)
 
 print("I love \(bttfA)")
 print("I love \(bttfB)")
+
 
